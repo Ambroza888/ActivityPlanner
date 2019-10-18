@@ -1,0 +1,53 @@
+<div class="row">
+      <h1 class="col-8">Activity Info</h1>
+      <a class ="col" href="/Dashbord">Dashboard</a>
+      <a class ="col" href="/clear">LOG OUT</a>
+  </div>
+
+<h3>Activity : @ViewBag.activity.Title</h3>
+<p>Cordinator : @ViewBag.activity.User.FirstName</p>
+<p>Description :</p>
+<p>@ViewBag.activity.Description</p>
+@if(@ViewBag.activity.Associations.Count >0)
+{
+<p>Participations</p>
+<ul>
+@foreach(Association i in @ViewBag.activity.Associations)
+{
+    <li>@i.User.FirstName @i.User.LastName</li>
+}
+</ul>
+}
+
+
+
+@if(@ViewBag.user_id == @ViewBag.activity.User.UserId)
+{
+<div class="row">
+    <div class="col">
+        <button><a href="/deleteActivity/@ViewBag.activity._ActivityId">Delete</a></button>
+    </div>
+</div>
+}
+else
+{
+    @foreach(_Activity i in @ViewBag.all_activities)
+    {
+        @if(@i.Associations.Any(u=>u.UserId == @ViewBag.user_id))
+        {
+            <div class="row">
+                <div class="col">
+                    <button><a href="#">Cancel</a></button>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col">
+                    <button><a href="#">Join</a></button>
+                </div>
+            </div>    
+        }
+    }
+}

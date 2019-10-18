@@ -1,0 +1,53 @@
+
+  <div class="row">
+      <h1 class="col-10">Dojo Activity Center</h1>
+      <a class ="col" href="/clear">LOG OUT</a>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Activity</th>
+            <th scope="col">Date and Time</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Event Coordinator</th>
+            <th scope="col">No. of Participants</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+            @foreach(_Activity i in @ViewBag.all_activities)
+            {
+          <tr>
+            <td><a href="/INFOActivity/@i._ActivityId">@i.Title</a></td>
+            <td>@i.Date.ToString("dd/MM") @@  @i.Time.ToString("hh:mm tt")</td>
+            <td>@i.Duration @i.HDW</td>
+            <td>@i.User.FirstName</td>
+            <td>@i.Associations.Count</td>
+            @if(@i.User.UserId == @ViewBag.user_id)
+            {
+            <td><a href="/deleteActivity/@i._ActivityId">Delete</a></td>
+            }
+            else
+            {
+              @if(@i.Associations.Any(a => a.UserId == @ViewBag.user_id))
+              {
+                <td><a href="/Cancel/@i._ActivityId">Cancel</a></td>
+              }
+              else
+              {
+                <td><a href="/Join/@i._ActivityId">Join</a></td>
+              }
+            }
+          </tr>
+            }
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-right">
+    <button><a href="/createActivity" class="text-dark">Add New Activity</a></button>
+    </div>
+  </div>

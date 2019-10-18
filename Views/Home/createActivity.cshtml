@@ -1,0 +1,49 @@
+@model _Activity
+<div class="row">
+      <h1 class="col-8">Create an Activity</h1>
+      <a class ="col" href="/Dashbord">Dashboard</a>
+      <a class ="col" href="/clear">LOG OUT</a>
+  </div>
+<form action="/newActivity" method="post">
+    <div class="row mt-5">
+      <div class="col-3">
+        <p><span class="text-danger" asp-validation-for="Title"></span></p>
+        <p>Title: <input asp-for="Title"></p>
+      </div>
+      <div class="col-3">
+        <p><span class="text-danger"  asp-validation-for="Time"></span></p>
+        <p>Time: <input asp-for="Time"></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <p><span class="text-danger" asp-validation-for="Date"></span></p>
+        <p>Date: <input asp-for="Date"></p>
+      </div>
+      <div class="col-3 p-0">
+        <p><span class="text-danger" asp-validation-for="Duration"></span></p>
+        <p>Duration: <input asp-for="Duration"></p>
+        <span asp-validation-for="Description"></span>
+      </div>
+      <div class="col-1 p-0">
+        <input type="hidden" value="@ViewBag.user_id" asp-for="UserId">
+        <p><span class="text-danger" asp-validation-for="HDW"></span></p>
+        <select asp-for="HDW">
+          <option value="Hours">Hours</option>
+          <option value="Minutes">Minutes</option>
+          <option value="Days">Days</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <span asp-validation-for="Description"></span>
+        <textarea asp-for="Description" cols="90" rows="4"></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <input type="Submit" value="Create Activity">
+      </div>
+    </div>
+  </form>
